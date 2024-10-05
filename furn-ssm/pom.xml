@@ -46,8 +46,14 @@
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.5.7</version>
+      <version>3.5.13</version> <!-- 确保版本较新，兼容Spring 6 -->
     </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>3.0.4</version> <!-- 确保版本较新，兼容Spring 6 -->
+    </dependency>
+
     <!--德鲁伊连接池-->
     <dependency>
       <groupId>com.alibaba</groupId>
@@ -77,32 +83,6 @@
   <build>
     <finalName>furn-ssm</finalName>
   </build>
-
-  <repositories>
-    <!-- 阿里云公共仓库 -->
-    <repository>
-      <id>aliyunmaven</id>
-      <url>https://maven.aliyun.com/repository/public</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-
-    <!-- Maven 中央仓库 -->
-    <repository>
-      <id>central</id>
-      <url>https://repo.maven.apache.org/maven2</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled> <!-- 通常中央仓库不提供快照版本 -->
-      </snapshots>
-    </repository>
-  </repositories>
 
 </project>
 
