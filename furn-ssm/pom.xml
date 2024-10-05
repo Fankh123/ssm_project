@@ -25,20 +25,23 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>5.3.8</version>
+      <version>6.0.0</version> <!-- 更新版本为 6.0.0 或更高 -->
     </dependency>
+
     <!--jdbc-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>5.3.8</version>
+      <version>6.0.0</version> <!-- 更新版本为 6.0.0 或更高 -->
     </dependency>
+
     <!--切面编程-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aspects</artifactId>
-      <version>5.3.8</version>
+      <version>6.0.0</version> <!-- 更新版本为 6.0.0 或更高 -->
     </dependency>
+
     <!--mybatis-->
     <dependency>
       <groupId>org.mybatis</groupId>
@@ -51,15 +54,55 @@
       <artifactId>druid</artifactId>
       <version>1.2.6</version>
     </dependency>
-    <!--mysql驱动-->
+    <!-- MySQL 驱动 -->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.30</version>
     </dependency>
+
+    <!-- JSP 和 Servlet 支持（更新为 Jakarta EE 版本） -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>5.0.0</version> <!-- 更新为 Jakarta EE 版本 -->
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>2.0.0</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>furn-ssm</finalName>
   </build>
+
+  <repositories>
+    <!-- 阿里云公共仓库 -->
+    <repository>
+      <id>aliyunmaven</id>
+      <url>https://maven.aliyun.com/repository/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+
+    <!-- Maven 中央仓库 -->
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled> <!-- 通常中央仓库不提供快照版本 -->
+      </snapshots>
+    </repository>
+  </repositories>
+
 </project>
 
