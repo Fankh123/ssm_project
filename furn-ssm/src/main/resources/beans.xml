@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd"><!--
+    <bean id="helloBean" class="com.sun.test.HelloBiz" />
+    <bean id="helloFactory" class="com.sun.test.helloFactory" >
+         使用set方法注入依赖
+        <property name="hello1" ref="helloBean"/>
+</bean>
+    <alias name="helloBean" alias="HelloBean"/>
+-->
+    <!--使用Autowire注入-->
+    <context:component-scan base-package="com.sun.test"/>
+    <!--属性解析-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="testBasicType" class="com.sun.test.TestBasicType" c:a="0" c:b="tsy" c:c="21">
+        <!--
+        <constructor-arg index="0" value="0"/>
+        <constructor-arg index="1" value="tsy"/>
+        <constructor-arg index="2" value="21"/>-->
+        <!---简写c:_序号 或c:构造方法的参数名-->
+
+</bean>
+</beans>
