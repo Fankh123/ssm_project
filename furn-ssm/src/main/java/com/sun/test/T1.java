@@ -11,11 +11,13 @@ public class T1 {
         //测试spring容器内的bean是否能正常获取
         ApplicationContext ioc = new ClassPathXmlApplicationContext("beans.xml");
         //获取bean
-       /* System.out.println(ioc.getBean("pooledDataSource"));
-        System.out.println(ioc.getBean("sqlSessionFactory"));
-        helloFactory hi=(helloFactory) ioc.getBean("helloFactory");
+        /*System.out.println(ioc.getBean("pooledDataSource"));
+        System.out.println(ioc.getBean("sqlSessionFactory"));*/
+        //测试工厂实现set依赖注入
+        /*helloFactory hi=(helloFactory) ioc.getBean("helloFactory");
         hi.creatHello("tom");*/
-        ExecutorService pool= Executors.newCachedThreadPool();
+        //测试单例和多例，通过方法中引用getBean实现多例
+        /*ExecutorService pool= Executors.newCachedThreadPool();
         for(int i=0;i<5;i++){
             pool.execute(new Runnable() {
                 @Override
@@ -27,9 +29,12 @@ public class T1 {
                 }
             });
         }
-        pool.shutdown();
-        TestBasicType test=(TestBasicType) ioc.getBean("testBasicType");
-        System.out.println(test);
+        pool.shutdown();*/
+        LogDynamic logd=(LogDynamic) ioc.getBean("log");
+        Hello h=(Hello)logd.bind(ioc.getBean("h"));
+        h.hello("tom");
+        /*TestBasicType test=(TestBasicType) ioc.getBean("testBasicType");
+        System.out.println(test);*/
     }
 }
 

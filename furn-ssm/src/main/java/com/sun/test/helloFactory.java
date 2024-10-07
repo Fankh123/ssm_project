@@ -19,7 +19,6 @@ public class helloFactory {
     }
     @Autowired
     @Qualifier("h")
-
     public void setHello1(HelloBiz hello, @Value("${user.size}")int size) {
         System.out.println("setHello被调用");
         this.hello= hello;

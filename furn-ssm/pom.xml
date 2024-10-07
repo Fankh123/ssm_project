@@ -41,6 +41,12 @@
       <artifactId>spring-aspects</artifactId>
       <version>6.0.0</version> <!-- 更新版本为 6.0.0 或更高 -->
     </dependency>
+    <!--aop-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>6.0.0</version>
+    </dependency>
 
     <!--mybatis-->
     <dependency>
