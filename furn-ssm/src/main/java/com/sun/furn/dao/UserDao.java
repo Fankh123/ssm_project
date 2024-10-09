@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-@Repository
+@Repository("userDao")
 public class UserDao extends BaseDao implements IUserDao{
 
     public void addUser(User user) throws Exception {

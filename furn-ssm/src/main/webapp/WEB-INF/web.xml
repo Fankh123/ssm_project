@@ -8,7 +8,7 @@
   <!--1.配置上下文路径参数-->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationContext.xml</param-value>
+    <param-value>classpath:beans.xml</param-value>
   </context-param>
 
   <!--3.配置Spring自带的过滤器，解决乱码问题-->

@@ -3,7 +3,10 @@ package com.sun.furn.dao;
 import java.sql.Connection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+
+import javax.sql.DataSource;
 
 public class BaseDao extends JdbcDaoSupport{
 

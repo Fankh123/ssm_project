@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:c="http://www.springframework.org/schema/c"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                    http://www.springframework.org/schema/beans/spring-beans.xsd
-                    http://www.springframework.org/schema/context
-                    http://www.springframework.org/schema/context/spring-context.xsd
-                    http://www.springframework.org/schema/aop
-                    http://www.springframework.org/schema/aop/spring-aop.xsd
-                    http://www.springframework.org/schema/tx
-                    http://www.springframework.org/schema/tx/spring-tx.xsd"><!--
-    <bean id="helloBean" class="com.sun.test.HelloBiz" />
-    <bean id="helloFactory" class="com.sun.test.helloFactory" >
-         使用set方法注入依赖
-        <property name="hello1" ref="helloBean"/>
-</bean>
-    <alias name="helloBean" alias="HelloBean"/>
--->
-    <!--使用Autowire注入-->
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 扫描包并排除 Controller -->
+    <context:component-scan base-package="com.sun.furn" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
     <context:component-scan base-package="com.sun.test"/>
     <context:component-scan base-package="com.sun.aop"/>
     <context:component-scan base-package="com.sun.furn.biz"/>
     <context:component-scan base-package="com.sun.furn.dao"/>
 
-
     <!-- 启用自动代理（AOP） -->
     <aop:aspectj-autoproxy/>
-    <!--属性解析-->
+
+    <!-- 属性解析 -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/staff" />
-        <property name="username" value="FKH"/>
-        <property name="password" value="123456"/>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.pwd}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
     </bean>
-    <bean id="txManager"
-        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
+    <!-- 配置 MyBatis 和 Spring 的整合 -->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!-- 配置扫描器，将 MyBatis 接口的实现加入到 IoC 容器中 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.sun.furn.dao"/>
+    </bean>
 
-    <bean id="testBasicType" class="com.sun.test.TestBasicType" c:a="0" c:b="tsy" c:c="21">
-        <!--
-        <constructor-arg index="0" value="0"/>
-        <constructor-arg index="1" value="tsy"/>
-        <constructor-arg index="2" value="21"/>-->
-        <!---简写c:_序号 或c:构造方法的参数名-->
+    <!-- 配置事务管理器 -->
+    <bean id="txManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
-</bean>
+    <!-- 配置启动注解的声明式事务管理功能 -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <!-- 示例 Bean 配置 -->
+    <bean id="testBasicType" class="com.sun.test.TestBasicType" c:a="0" c:b="tsy" c:c="21"/>
 </beans>
