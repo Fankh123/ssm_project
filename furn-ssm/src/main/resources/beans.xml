@@ -5,12 +5,15 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/context
-                           http://www.springframework.org/schema/context/spring-context.xsd
-                           http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop.xsd"><!--
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/context
+                    http://www.springframework.org/schema/context/spring-context.xsd
+                    http://www.springframework.org/schema/aop
+                    http://www.springframework.org/schema/aop/spring-aop.xsd
+                    http://www.springframework.org/schema/tx
+                    http://www.springframework.org/schema/tx/spring-tx.xsd"><!--
     <bean id="helloBean" class="com.sun.test.HelloBiz" />
     <bean id="helloFactory" class="com.sun.test.helloFactory" >
          使用set方法注入依赖
@@ -21,11 +24,27 @@
     <!--使用Autowire注入-->
     <context:component-scan base-package="com.sun.test"/>
     <context:component-scan base-package="com.sun.aop"/>
+    <context:component-scan base-package="com.sun.furn.biz"/>
+    <context:component-scan base-package="com.sun.furn.dao"/>
+
 
     <!-- 启用自动代理（AOP） -->
     <aop:aspectj-autoproxy/>
     <!--属性解析-->
     <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/staff" />
+        <property name="username" value="FKH"/>
+        <property name="password" value="123456"/>
+    </bean>
+    <bean id="txManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
     <bean id="testBasicType" class="com.sun.test.TestBasicType" c:a="0" c:b="tsy" c:c="21">
         <!--
         <constructor-arg index="0" value="0"/>

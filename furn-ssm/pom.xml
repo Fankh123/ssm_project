@@ -41,6 +41,11 @@
       <artifactId>spring-aspects</artifactId>
       <version>6.0.0</version> <!-- 更新版本为 6.0.0 或更高 -->
     </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.22.1</version>
+    </dependency>
     <!--aop-->
     <dependency>
       <groupId>org.springframework</groupId>
