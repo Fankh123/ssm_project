@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sun.furn.mapper.IUserMapper">
+    <!-- 定义结果映射，匹配数据库列名和实体类属性 -->
+    <resultMap id="userResultMap" type="com.sun.furn.entity.User">
+        <id property="sno" column="sno"/>
+        <result property="uname" column="uname"/>
+        <result property="pwd" column="pwd"/>
+        <result property="role" column="role"/>
+    </resultMap>
+
+    <!-- 使用 resultMap 映射结果 -->
+    <select id="getAllUser" resultMap="userResultMap">
+        SELECT * FROM tuser;
+    </select>
+
+    <!-- 使用 resultMap 映射结果 -->
+    <select id="getUserByName" parameterType="String" resultMap="userResultMap">
+        SELECT * FROM tuser
+        <if test="name != null">WHERE uname = #{name}</if>;
+        <!--当传入为null时候返回所有对象-->
+    </select>
+</mapper>
+

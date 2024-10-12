@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserBiz implements IUser{
     @Autowired
@@ -32,5 +34,13 @@ public class UserBiz implements IUser{
         } finally {
             // 数据库资源的清理可以由 Spring 的事务管理来自动处理
         }
+    }
+    @Transactional
+    public List<User> getAllUser()throws Exception{
+        return userDao.getAllUser();
+    }
+    @Transactional
+    public List<User> getUserByName(String name)throws Exception{
+        return userDao.getUserByName(name);
     }
 }
